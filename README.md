@@ -17,6 +17,7 @@ El modelo final sigue un enfoque de **Star Schema** recomendado para rendimiento
 **Hechos**
 - `fact_orders`: Métricas a nivel pedido (tiempos de entrega, retrasos, estado).
 - `fact_order_items`: Métricas a nivel ítem (precio, flete, total).
+- `fact_reviews`: Métricas a nivel de pedidos(Comentarios, Calificaciones buenas y malas).
 
 **Dimensiones**
 - `dim_customer`, `dim_product`, `dim_seller`, `dim_date`.
