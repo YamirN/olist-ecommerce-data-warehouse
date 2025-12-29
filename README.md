@@ -2,7 +2,6 @@
 
 ![SQL Server](https://img.shields.io/badge/Database-SQL_Server-CC2927?style=for-the-badge&logo=microsoft-sql-server&logoColor=white)
 ![ETL](https://img.shields.io/badge/Pipeline-ETL-blue?style=for-the-badge)
-![Power BI](https://img.shields.io/badge/BI-Power_BI-F2C811?style=for-the-badge&logo=power-bi&logoColor=black)
 ![Status](https://img.shields.io/badge/Estado-Completado-success?style=for-the-badge)
 
 ## 📌 Descripción del proyecto
