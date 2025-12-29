@@ -1,53 +1,48 @@
-# 🛒 Olist E-commerce Data Warehouse
+# 🛒 Data Warehouse de E-commerce (Olist)
 
 ![SQL Server](https://img.shields.io/badge/Database-SQL_Server-CC2927?style=for-the-badge&logo=microsoft-sql-server&logoColor=white)
 ![ETL](https://img.shields.io/badge/Pipeline-ETL-blue?style=for-the-badge)
 ![Power BI](https://img.shields.io/badge/BI-Power_BI-F2C811?style=for-the-badge&logo=power-bi&logoColor=black)
-![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)
+![Status](https://img.shields.io/badge/Estado-Completado-success?style=for-the-badge)
 
-## 📋 Project Overview
-This project demonstrates an end-to-end **Data Engineering** solution for the **Olist Brazilian E-commerce** public dataset. The goal was to build a robust, scalable Data Warehouse (DWH) to analyze sales trends, delivery performance, and customer behavior.
+## 📌 Descripción del proyecto
+Este proyecto implementa una solución End-to-End de **Data Engineering** para el dataset público de e-commerce brasileño **Olist**. El objetivo es construir un Data Warehouse listo para BI, con métricas de ventas y logística (entregas), y un modelo dimensional optimizado para reporting.  
+El modelo final sigue un enfoque de **Star Schema** recomendado para rendimiento y usabilidad en herramientas como Power BI. [web:240]
 
-The architecture follows the **Medallion Architecture** (Bronze → Silver → Gold) and implements a **Kimball Star Schema** optimized for BI reporting.
+## 🏗️ Arquitectura (Bronze → Silver → Gold)
+- **Bronze (Raw):** Ingesta directa de CSV (datos crudos).
+- **Silver (Cleansed):** Limpieza, tipado, normalización y reglas de calidad (manejo de NULLs y consistencia).
+- **Gold (Dimensional):** Modelo dimensional tipo estrella con **Surrogate Keys** y tablas de hechos/dimensiones.
 
-## 🏗️ Architecture
+## 🌟 Modelo dimensional (Gold)
+**Hechos**
+- `fact_orders`: Métricas a nivel pedido (tiempos de entrega, retrasos, estado).
+- `fact_order_items`: Métricas a nivel ítem (precio, flete, total).
 
-The ETL pipeline transforms raw CSV data into a dimensional model:
+**Dimensiones**
+- `dim_customer`, `dim_product`, `dim_seller`, `dim_date`.
 
-1.  **Bronze Layer (Raw):** Direct ingestion of CSV files (Data Lake approach).
-2.  **Silver Layer (Cleansed):** Data cleaning, normalization (3NF), handling NULLs, and standardizing data types.
-3.  **Gold Layer (Dimensional):** Final **Star Schema** with Fact and Dimension tables using Surrogate Keys (SK).
+> Nota: Se permitió el uso de **NULLs reales** en fechas opcionales (por ejemplo, entrega no disponible) para evitar “fechas dummy” que confunden el análisis y los ejes temporales en BI. [web:246][web:258]
 
-### 🌟 Data Model (Gold Schema)
-*   **Facts:** `fact_orders` (Business Process), `fact_order_items` (Sales Transaction).
-*   **Dimensions:** `dim_customer`, `dim_product`, `dim_seller`, `dim_date`.
-
-## 🛠️ Tech Stack
-*   **Database:** Microsoft SQL Server 2022
-*   **Language:** T-SQL (Stored Procedures, Window Functions, CTEs)
-*   **Modeling:** Star Schema / Dimensional Modeling
-*   **Orchestration:** T-SQL Stored Procedures
-*   **Visualization:** Power BI (Connected via Import Mode)
+## 🧰 Tecnologías usadas
+- **Base de datos:** Microsoft SQL Server
+- **Lenguaje:** T‑SQL (Stored Procedures, CTEs, DDL/DML)
+- **Modelado:** Dimensional Modeling (Star Schema)
+- **Visualización:** Power BI (modo Import recomendado para este volumen). [web:240]
 
 
-## 🚀 Key Features Implemented
-*   **Surrogate Keys:** Replaced natural string IDs with optimized `INT IDENTITY` keys.
-*   **Data Quality Handling:**
-    *   Managed NULL dates in delivery timelines to ensure clean BI reporting.
-    *   Implemented "Unknown Member" handling for referential integrity.
-*   **Date Dimension:** Generated a comprehensive calendar table with T-SQL.
-*   **Performance:** Proper indexing on Foreign Keys and Fact Tables.
-
-## 📊 Results & QA
-The final DWH passed all integrity checks:
-*   ✅ **Revenue Match:** R$ 15.8M (Validated against source).
-*   ✅ **Integrity:** 0 Orphan records in Fact tables.
-*   ✅ **Data Consistency:** 0 "Impossible dates" (e.g., delivered before purchase).
+## ✅ QA / Validaciones
+Se incluyeron scripts de validación para:
+- Comparación de volumetría (Silver vs Gold)
+- Integridad referencial (orphans = 0)
+- Anomalías (fechas imposibles, nulos esperados)
 
 ## 📄 Dataset
-The dataset used is the public [Olist Brazilian E-Commerce Dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) available on Kaggle.
+Dataset público en Kaggle:  
+https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
 
 ---
-*Created by [Tu Nombre] - 2025*
+
+
 
 
